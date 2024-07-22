@@ -21,8 +21,8 @@ inertial bob = inertial(PORT8);
 motor inta = motor(PORT1, ratio18_1, 0);
 motor pner = motor(PORT13, ratio18_1, 0);
 digital_out clip = digital_out(Brain.ThreeWirePort.D);
-digital_out elevation = digital_out(Brain.ThreeWirePort.A);
-
+digital_out hood = digital_out(Brain.ThreeWirePort.A);
+distance tim = distance(PORT17);
 // VEXcode generated functions
 
 

@@ -59,30 +59,43 @@ void driver(){
     //   pner.stop(hold);
     // }
 
+/////////////////////////////////////////////////////////////////
+
+    //distance sensor
+    double distance = tim.objectDistance(inches);
+    if(distance < 10){
+      hood.set(false);
+    } else{
+      hood.set(true);
+    }
+
+/////////////////////////////////////////////////////////////////
+
     //elevation button need to change
-    if(con.ButtonDown.pressing() == true)
-      {
-        x++;
-      }
-    else
-      {
-        x = 0 ;
-      }
-    if(x == 1)
-      {
-        if(push == 0)
-        {
-          elevation.set(true);
-          push = 1;
-        }
-        else if (push == 1)
-        {
+    // if(con.ButtonDown.pressing() == true)
+    //   {
+    //     x++;
+    //   }
+    // else
+    //   {
+    //     x = 0 ;
+    //   }
+    // if(x == 1)
+    //   {
+    //     if(push == 0)
+    //     {
+    //       elevation.set(true);
+    //       push = 1;
+    //     }
+    //     else if (push == 1)
+    //     {
           
-          elevation.set(false);
+    //       elevation.set(false);
           
-          push = 0;
-        }
-      }
+    //       push = 0;
+    //     }
+    //   }
+
     //clip
     if(con.ButtonR1.pressing() == true)
       {

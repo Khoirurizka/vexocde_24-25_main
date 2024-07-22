@@ -17,7 +17,8 @@ extern motor_group rightmo;
 extern motor inta;
 extern motor pner;
 extern digital_out clip;
-extern digital_out elevation;
+extern digital_out hood;
+extern distance tim;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
