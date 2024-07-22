@@ -62,7 +62,7 @@ void driver(){
 /////////////////////////////////////////////////////////////////
 
     //distance sensor
-    double distance = tim.objectDistance(inches);
+    double distance = tim.objectDistance(mm);
     if(distance < 10){
       hood.set(false);
     } else{
