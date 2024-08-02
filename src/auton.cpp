@@ -5,14 +5,44 @@
 using namespace vex;
 using namespace auton;
 
+void testForward() {
+    setHeading(0);
+    driveAndTurn(1, 0);
+    driveAndTurn(-1, 0);
+    driveAndTurn(2, 0);
+    driveAndTurn(-2, 0);
+}
+
+void testTurning() {
+    setHeading(0);
+    turnToAngle(90);
+    turnToAngle(-90);
+    turnToAngle(180);
+    turnToAngle(-180);
+    turnToAngle(0);
+}
+
 void close_qua(){
-setHeading(270);
+/* Testing auton functions */
+
+if (true) {
+    testForward();
+    //testTurning();
+    return;
+}
+
 // vex::pneumatics intawings = vex::pneumatics(Brain.ThreeWirePort.D);
 // wait(1,msec);
 
-driveAndTurn(-1.2, 0);
+
+/* Actual auton */
+
+setHeading(270);
+
+driveAndTurn(-1.2, 270);
 //clip.set(true);
-turnToAngle(-100);
+// turnToAngle(-100);
+turnToAngle(180);
 driveAndTurn(0.9, 120);
 driveAndTurn(1.95, 0, 90, 80);
 inta.spin(reverse);
