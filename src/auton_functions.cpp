@@ -3,18 +3,24 @@
 #include "robot-config.h"
 #include "main.h"
 #include "iostream"
+
 double newTurnVelocity;
 namespace auton {
+    double tileDistanceInch = 23.5625;
+    double baseWheelDiameter = 3.5;
+    double wheelGearTeeth = 48.0;
+    double motorGearTeeth = 36.0;
 
-double heading_convert(double heading){
-  return(heading > 180) ? heading - 360 : heading;
-  /*twenRY Operator A = (condition) ? (true data) : (false data)*/
-}
+    double heading_convert(double heading){
+        return(heading > 180) ? heading - 360 : heading;
+        /*twenRY Operator A = (condition) ? (true data) : (false data)*/
+    }
 
 
    double sped = 0.06;
     void driveAndTurn(double tiles, double angle, double linearMaxVelocity, double turnMaxVelocity, double timeoutMs){
-        double distanceDegree = tiles * (24.0 / 1.0) * (1.0 / (M_PI * 3.5 )) * (84.0 / 1.0) * (1.0 / 48.0) * (360.0 / 1.0);
+        // 23.5625
+        double distanceDegree = tiles * (tileDistanceInch / 1.0) * (1.0 / (M_PI * baseWheelDiameter)) * (wheelGearTeeth / 1.0) * (1.0 / motorGearTeeth) * (360.0 / 1.0);
         double initLeftMoterDegree = leftmo.position(degrees);
         double initRightMoterDegree = rightmo.position(degrees);
         // PIDControl drivePID(sped, 0, 0, 2);
