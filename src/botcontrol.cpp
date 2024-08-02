@@ -19,6 +19,9 @@ bool turningRed = false;
 int forwardCurve = 10;
 bool forwardRed = false;
 
+bool intaReverse = false;
+bool intaForward = false;
+
 int curveJoystick(bool red, int input, double t){
   int val = 0;
   if(red){
@@ -42,14 +45,43 @@ void driver(){
     // rightmo.spin(forward, forwardVolts - turnVolts, voltageUnits::volt);
 
     // vex::task::sleep(20);
-    if(con.ButtonL2.pressing()){
-      inta.spin(reverse, 100, pct);
-    } else if(con.ButtonL1.pressing()){
-      inta.spin(fwd, 100, pct);
-    } else{
-      inta.stop(hold);
-    }
 
+    // if(con.ButtonL2.pressing()){
+    //   inta.spin(reverse, 100, pct);
+    //  } else if(con.ButtonL1.pressing()){
+    //    inta.spin(fwd, 100, pct);
+    // } else{
+    //   inta.stop(brake);
+    // }
+
+    if(con.ButtonL2.pressing()){
+      //debounce button press
+      while(con.ButtonL2.pressing()){
+        wait(10,msec);
+      }
+    }
+      if(intaReverse){
+        inta.stop(brake);
+        intaReverse = false;
+      } else{
+        inta.spin(reverse, 100, pct);
+        intaReverse = true;
+        intaForward = false;
+      }
+
+    if(con.ButtonL1.pressing()){
+      while(con.ButtonL1.pressing()){
+        wait(10,msec);
+      }
+    }
+      if(intaForward){
+        inta.stop(brake);
+        intaForward = false;
+      } else{
+        inta.spin(fwd, 100, pct);
+        intaForward = true;
+        intaReverse = false;
+      }
 
     // if(con.ButtonX.pressing()){
     //   pner.spin(reverse, 30, pct);
@@ -62,12 +94,13 @@ void driver(){
 /////////////////////////////////////////////////////////////////
 
     //distance sensor
-    double distance = tim.objectDistance(mm);
+    /*double distance = tim.objectDistance(mm);
     if(distance < 10){
       hood.set(false);
     } else{
       hood.set(true);
-    }
+    }*/
+   
 
 /////////////////////////////////////////////////////////////////
 
@@ -97,7 +130,7 @@ void driver(){
     //   }
 
     //clip
-    if(con.ButtonR1.pressing() == true)
+    if(con.ButtonA.pressing() == true)
       {
         y++;
       }
@@ -107,6 +140,7 @@ void driver(){
       }
     if(y == 1)
       {
+        waitUntil(!con.ButtonA.pressing());
         if(push1 == 0)
         {
           clip.set(true);
@@ -115,6 +149,30 @@ void driver(){
         else if (push1 == 1)
         {
           clip.set(false);
+          push1 = 0;
+        }
+      }
+
+      //intakeLift 
+      if(con.ButtonR2.pressing() == true)
+      {
+        y++;
+      }
+      else
+      {
+        y = 0 ;
+      }
+      if(y == 1)
+      {
+        waitUntil(!con.ButtonR2.pressing());
+        if(push1 == 0)
+        {
+          intakeLift.set(true);
+          push1 = 1;
+        }
+        else if (push1 == 1)
+        {
+          intakeLift.set(false);
           push1 = 0;
         }
       }
@@ -129,7 +187,7 @@ void driver(){
     leftVolt *= scale;
     rightVolt *= scale;
     if (fabs(leftVolt) < 0.1){
-        leftmo.stop(brake);
+        leftmo.stop(coast);
     } 
     else{
         leftmo.spin(forward, leftVolt, volt);
