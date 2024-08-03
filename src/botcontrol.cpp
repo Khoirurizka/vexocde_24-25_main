@@ -35,6 +35,17 @@ int curveJoystick(bool red, int input, double t){
 
 void driver(){
   while(1){
+    
+  Brain.Screen.printAt(180, 136, "L1 Temp: %.2f C", l1.temperature(temperatureUnits::celsius));
+  Brain.Screen.printAt(180, 156, "L2 Temp: %.2f C", l2.temperature(temperatureUnits::celsius));
+  Brain.Screen.printAt(180, 176, "L3 Temp: %.2f C", l3.temperature(temperatureUnits::celsius));
+
+  Brain.Screen.printAt(180, 196, "R1 Temp: %.2f C", r1.temperature(temperatureUnits::celsius));
+  Brain.Screen.printAt(180, 216, "R2 Temp: %.2f C", r2.temperature(temperatureUnits::celsius));
+  Brain.Screen.printAt(180, 236, "R3 Temp: %.2f C", r3.temperature(temperatureUnits::celsius));
+
+
+
     // double turnVal = curveJoystick(false, con.Axis1.position(percent), turningCurve); //Get curvature according to settings [-100,100]
     // double forwardVal = curveJoystick(false, con.Axis3.position(percent), forwardCurve); //Get curvature according to settings [-100,100]
 
@@ -54,34 +65,44 @@ void driver(){
     //   inta.stop(brake);
     // }
 
-    if(con.ButtonL2.pressing()){
-      //debounce button press
-      while(con.ButtonL2.pressing()){
-        wait(10,msec);
-      }
+if(con.ButtonR1.pressing()) {
+    // Debounce button press
+    while(con.ButtonR1.pressing()) {
+        wait(10, msec);
     }
-      if(intaReverse){
+
+    // Toggle reverse spinning state
+    if(intaReverse) {
         inta.stop(brake);
         intaReverse = false;
-      } else{
+    } else {
         inta.spin(reverse, 100, pct);
         intaReverse = true;
-        intaForward = false;
-      }
-
-    if(con.ButtonL1.pressing()){
-      while(con.ButtonL1.pressing()){
-        wait(10,msec);
-      }
+        intaForward = false;  // Ensure forward spin is stopped
     }
-      if(intaForward){
+} else if(con.ButtonR2.pressing()) {
+    // Debounce button press
+    while(con.ButtonR2.pressing()) {
+        wait(10, msec);
+    }
+
+    // Toggle forward spinning state
+    if(intaForward) {
         inta.stop(brake);
         intaForward = false;
-      } else{
+    } else {
         inta.spin(fwd, 100, pct);
         intaForward = true;
-        intaReverse = false;
-      }
+        intaReverse = false;  // Ensure reverse spin is stopped
+    }
+} else {
+    // Stop the intake motor if neither button is pressed
+    if(!intaForward && !intaReverse) {
+        inta.stop(brake);
+    }
+}
+
+
 
     // if(con.ButtonX.pressing()){
     //   pner.spin(reverse, 30, pct);
@@ -154,7 +175,7 @@ void driver(){
       }
 
       //intakeLift 
-      if(con.ButtonR2.pressing() == true)
+      if(con.ButtonL2.pressing() == true)
       {
         y++;
       }
@@ -164,7 +185,7 @@ void driver(){
       }
       if(y == 1)
       {
-        waitUntil(!con.ButtonR2.pressing());
+        waitUntil(!con.ButtonL2.pressing());
         if(push1 == 0)
         {
           intakeLift.set(true);
@@ -187,7 +208,7 @@ void driver(){
     leftVolt *= scale;
     rightVolt *= scale;
     if (fabs(leftVolt) < 0.1){
-        leftmo.stop(coast);
+        leftmo.stop(brake);
     } 
     else{
         leftmo.spin(forward, leftVolt, volt);
