@@ -24,6 +24,7 @@ digital_out clip = digital_out(Brain.ThreeWirePort.A);
 //digital_out hood = digital_out(Brain.ThreeWirePort.D);
 digital_out intakeLift = digital_out(Brain.ThreeWirePort.H);
 distance tim = distance(PORT17);
+//vision bakchu = vision(PORT7);
 // VEXcode generated functions
 
 
