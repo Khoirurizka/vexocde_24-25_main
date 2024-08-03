@@ -5,50 +5,49 @@
 using namespace vex;
 using namespace auton;
 
-void testForward() {
-    setHeading(0);
-    driveAndTurn(1, 0);
-    driveAndTurn(-1, 0);
-    driveAndTurn(2, 0);
-    driveAndTurn(-2, 0);
-}
-
-void testTurning() {
-    setHeading(0);
-    turnToAngle(90);
-    turnToAngle(-90);
-    turnToAngle(180);
-    turnToAngle(-180);
-    turnToAngle(0);
-}
-
 void close_qua(){
-/* Testing auton functions */
 
-if (true) {
-    testForward();
-    //testTurning();
-    return;
-}
+//75% 5 pts
 
-// vex::pneumatics intawings = vex::pneumatics(Brain.ThreeWirePort.D);
-// wait(1,msec);
+// setHeading(270);
+
+// driveAndTurn(-1.1, 0);
+// clip.set(true);
+// turnToAngle(-106);
+// inta.spin(reverse, 100, pct);
+// driveAndTurn(1, -90);
+// turnToAngle(60);
+// intakeLift.set(true);
+// driveAndTurn(1.7, 63, 80, 80);
+// driveAndTurn(0.4, 63);
+// intakeLift.set(false);
+// turnToAngle(150);
+
+// intakeLift.set(true);
+// inta.stop(brake);
+// driveAndTurn(0.7, 150);
+// clip.set(false);
+
+///////////////////////////////////////
+
+//100% 
+
+setHeading(290);
+driveAndTurn(-2.28, 0);
+clip.set(true);
+// turnToAngle(30);
+// driveAndTurn(-0.43, 30);
+// clip.set(true);
+// turnToAngle(-20);
+// inta.spin(reverse, 100, pct);
+// driveAndTurn(0.7, 0);
+// clip.set(true);
 
 
-/* Actual auton */
 
-setHeading(270);
-
-driveAndTurn(-1.2, 270);
-//clip.set(true);
-// turnToAngle(-100);
-turnToAngle(180);
-driveAndTurn(0.9, 120);
-driveAndTurn(1.95, 0, 90, 80);
-inta.spin(reverse);
-driveAndTurn(0.2, 0);
-turnToAngle(80);
-driveAndTurn(1, 0);
+// driveAndTurn(0.2, 0);
+// turnToAngle(80);
+// driveAndTurn(1, 0);
 
 // driveAndTurn(0.35,270);
 // driveAndTurn(2,340);
