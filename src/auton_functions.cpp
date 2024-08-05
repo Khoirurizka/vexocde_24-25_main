@@ -74,10 +74,10 @@ namespace auton {
         leftmo.stop();
         rightmo.stop();
     }
-    void driveVelocity(double leftPct, double rightPct){
+    void driveVelocity(double leftPct, double rightPct,leftratio,rightratio){
         double scale = 100.0 / fmax(100.0, fmax(fabs(leftPct), fabs(rightPct)));
-        leftPct *= scale;
-        rightPct *= scale;
+        leftPct = leftPct *scale * leftratio/fmax(leftratio,rightratio);
+        rightPct = rightPct *scale* rightratio/fmax(leftratio,rightratio);
         leftmo.spin(fwd, leftPct, pct);
         rightmo.spin(fwd, rightPct, pct);
     }
